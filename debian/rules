@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
 
 SHELL := sh -e
-VERSION ?= 142.0.7444.162-1
+VERSION ?= 146.0.7680.153-1
 
 %:
 	dh ${@}
@@ -20,3 +20,8 @@ override_dh_auto_build: ungoogled-chromium
 override_dh_auto_install:
 	mkdir -p $(CURDIR)/debian/ungoogled-chromium/usr/share
 	cp -a ungoogled-chromium $(CURDIR)/debian/ungoogled-chromium/usr/share/ungoogled-chromium
+
+# Prebuilt upstream binaries: Depends are listed in debian/control. dh_shlibdeps
+# needs matching libraries on the build host and fails in minimal CI images.
+override_dh_shlibdeps:
+	@:
