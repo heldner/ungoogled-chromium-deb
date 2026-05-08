@@ -18,12 +18,12 @@ jobs:
       uses: addnab/docker-run-action@v3
       with:
         image: debian:trixie-slim
-        options: -v ${{ github.workspace }}:/github/workspace -w /github/workspace -e VERSION=${{ github.ref_name }}
+        options: -v ${{ github.workspace }}:/github/workspace -w /github/workspace -e VERSION=${{ github.ref_name }} -e DEBIAN_FRONTEND=noninteractive
         run: |
-          apt update
-          apt install --no-install-recommends -y curl \
+          apt-get update
+          apt-get install --no-install-recommends -y curl \
             devscripts equivs fakeroot debhelper
-          yes | mk-build-deps --install debian/control
+          mk-build-deps --install --tool 'apt-get -y --no-install-recommends' debian/control
           DEB_BUILD_OPTIONS='noautodbgsym' fakeroot debian/rules binary
           mv ../ungoogled-chromium_*_amd64.deb .
 

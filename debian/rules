@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
 
 SHELL := sh -e
-VERSION ?= 148.0.7778.96-1
+VERSION ?= 147.0.7727.137-1
 
 %:
 	dh ${@}
