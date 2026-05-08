@@ -4,7 +4,7 @@ name: Makefile CI
 on:
   push:
     tags:
-      - "*.*"
+      - "*.*.*.*-*"
 
 jobs:
   build:
@@ -18,7 +18,7 @@ jobs:
       uses: addnab/docker-run-action@v3
       with:
         image: debian:trixie-slim
-        options: -v ${{ github.workspace }}:/github/workspace -w /github/workspace
+        options: -v ${{ github.workspace }}:/github/workspace -w /github/workspace -e VERSION=${{ github.ref_name }}
         run: |
           apt update
           apt install --no-install-recommends -y curl \
